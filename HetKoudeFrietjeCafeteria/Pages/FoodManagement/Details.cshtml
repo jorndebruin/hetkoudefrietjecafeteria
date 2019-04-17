@@ -1,0 +1,36 @@
+﻿@page
+@model HetKoudeFrietjeCafeteria.Pages.FoodManagement.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Info</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Naam
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Food.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Beschrijving
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Food.Description)
+        </dd>
+        <dt class="col-sm-2">
+            Prijs
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Food.BasePrice)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Food.FoodID">Wijzigen</a> |
+    <a asp-page="./Index">Terug</a>
+</div>

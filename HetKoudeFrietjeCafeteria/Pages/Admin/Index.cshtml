@@ -1,0 +1,67 @@
+﻿@page
+@model HetKoudeFrietjeCafeteria.Pages.Admin.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<input type="date" class="float-right" value="@Html.Encode( Request.Query["date"])"  style="margin:1em 0" onchange="window.location.href = '/Admin/?date=' + $(this).val()" />
+<h1>Eigenaar overzicht</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Bestelnummer
+            </th>
+            <th>
+                Producten
+            </th>
+            <th>
+                Aantal
+            </th>
+            <th>
+                Prijs
+            </th>
+            <th>
+                Totaal bestelling
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Order)
+        {
+            int row = 1;
+
+            @foreach (var item in order.Items)
+            {
+                <tr>
+                    @if (row == 1)
+                    {
+                        <td rowspan="@Html.Encode((order.Items.Count).ToString())">
+                            @Html.Encode(order.OrderID.ToString("N0"))
+                        </td>
+                    }
+                    <td>@Html.Encode(item.FoodItem.Name)</td>
+                    <td>@Html.Encode(item.Quantity.ToString("N0"))</td>
+                    <td>@Html.Encode(item.OrderPrice.ToString("N2"))</td>
+
+                    @if (row++ == 1)
+                    {
+                        <td rowspan="@Html.Encode((order.Items.Count).ToString())">
+                            @Html.Encode(order.Items.Sum(i => i.OrderPrice).ToString("N2")) Euro
+                        </td>
+                    }
+                </tr>
+
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="4">Totaal deze dag</th>
+            <td>@Html.Encode(Model.Order.Sum(o => o.Items.Sum(i => i.OrderPrice)).ToString("N2")) Euro</td>
+        </tr>
+    </tfoot>
+</table>

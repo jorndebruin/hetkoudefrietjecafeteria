@@ -1,0 +1,64 @@
+﻿@page
+@model HetKoudeFrietjeCafeteria.Pages.Kitchen.InfoModel
+
+@{
+    ViewData["Title"] = "Order Info";
+}
+
+<h1>Bestelling Informatie</h1>
+
+<div>
+    <h4>Bestellingen</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Bestelling</dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.OrderID)
+        </dd>
+        <dt class="col-sm-2">Producten</dt>
+        <dd class="col-sm-10">
+
+
+            @foreach (var item in Model.Order.Items)
+            {
+                <div class="row">
+                    <span class="col-sm-10">@Html.DisplayFor(modelItem => item.FoodItem.Name)</span>
+                    <span class="col-sm-2" style="text-align:right"><span class="badge">@Html.DisplayFor(modelItem => item.Quantity) </span></span>
+                </div>
+            }
+        </dd>
+        <dt class="col-sm-2">
+            Geplaatst op
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Created)
+        </dd>
+        <dt class="col-sm-2">
+            Ontvangen op
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Placed)
+        </dd>
+        <dt class="col-sm-2">
+            Adres
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Address.Name) <br>
+            @Html.DisplayFor(model => model.Order.Address.Address)<br>
+            @Html.DisplayFor(model => model.Order.Address.Zip)<br>
+            @Html.DisplayFor(model => model.Order.Address.City)<br>
+            @Html.DisplayFor(model => model.Order.Address.State)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (Model.Prev != null)
+    {
+        <a asp-page="./Info" asp-route-id="@Model.Prev.OrderID">Vorige</a>
+    }
+    @if (Model.Next != null)
+    {
+        <a asp-page="./Info" asp-route-id="@Model.Next.OrderID">Volgende</a>
+    }
+    <a asp-page="./Index">Terug</a>
+</div>

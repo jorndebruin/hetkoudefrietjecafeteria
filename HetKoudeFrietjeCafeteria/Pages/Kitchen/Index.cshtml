@@ -1,0 +1,49 @@
+﻿@page
+@model HetKoudeFrietjeCafeteria.Pages.Kitchen.IndexModel
+
+@{
+    ViewData["Title"] = "Kitchen overview";
+}
+
+<h1>Keuken</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Bestelnummer
+            </th>
+            <th>
+                Besteld op
+            </th>
+            <th>
+                Ontvangen op
+            </th>
+            <th>
+                Adres
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Order) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Placed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address.Address)
+            </td>
+            <td>
+                <a asp-page="./Info" asp-route-id="@item.OrderID">Informatie</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
